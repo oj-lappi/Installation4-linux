@@ -108,7 +108,7 @@ exempel:
 
 	umount /mnt
 
-	avmonterar filsystemet vi monterade i förra uppgiften
+	avmonterar filsystemet vi monterade i exemplet för mount
 
 Vanligtvis är bestäms filsystemet vi monterar via en filstig till katatlogen
 /dev, var alla lagringsenheter som är kopplade till datorn syns. Det går också
