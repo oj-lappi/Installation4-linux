@@ -1,0 +1,120 @@
+Återställa terminalen
+=====================
+
+Vad än du håller på med, om du märker att du gjort ett misstag, eller minns att något
+annat borde göras först, går det att återställa terminalen.
+
+CTRL-c
+------
+
+Tryck CTRL-c för att återställa terminalen till tomt läge. Detta fungerar i de flesta fallen.
+
+CTRL-d
+------
+
+I vissa fall, om du är inne i ett nytt shell-lager, (t.ex. ipython, su, /bin/sh) måste du istället trycka på CTRL-d
+
+q
+-
+
+t.ex. man och less kan du avsluta med q
+
+
+TAB-completion
+==============
+
+Shellen har den trevliga egenskapen, att du inte behöver skriva hela kommandon eller filnamn.
+
+Om du har skrivit början till t.ex. ett kommando eller ett filnamn och trycker på
+TAB-tangenten så kommer shellen att gissa (på ett smart sätt) vad du försökte skriva.
+
+Exempel
+-------
+
+1. Om du skriver 
+
+	firef
+
+och trycker på TAB, kommer resten att fyllas in:
+
+	firefox
+
+2. Om du skriver:
+
+	fi
+
+och trycker på TAB en gång, fylls inget in, eftersom det finns många kommandon som börjar på fi.
+Men om du trycker på TAB _TVÅ_ gånger visas en lista av alla möjliga kommandon som skulle passa:
+
+fi                    fignore               filecap               fill
+find                  findfs                findmnt               fire
+fisql                 fixparts              fix-qdf               fixqt4headers.pl-qt5
+fiascotopnm           file                  filefrag              fincore
+find-all-symbols      findhyph              findssl.sh            firefox
+fitstopnm             fixproc               fixqt4headers.pl
+
+(Vad som syns beror på vilka program du har installerat)
+
+Sök genom tidigare kommandon
+============================
+
+Det finns ofta fall då du vill köra kommandon på nytt, shellen gör detta enkelt för dig.
+
+Bläddra med piltangenter
+------------------------
+
+Tryck upp eller ner för att bläddra genom tidigare kommandon du skrivit. Detta är
+speciellt användbart om du vill köra om det senaste kommandot, eller editera ett
+kommando som du stavat fel.
+
+
+Sök med CTRL-r
+--------------
+
+När du trycker CTRL-r öppnas ett sökfält i terminalen och du kan skriva in en sökterm.
+Om du skriver t.ex.:
+
+	ls
+
+Kommer det sista kommandot du skrev som innehöll texten "ls" att visas. 
+
+Du kan nu:
+
+1. Trycka på Enter
+
+	då kommer kommandot att köras
+
+2. Trycka på CTRL-r igen
+
+	då kommer nästa sökträff att visas, med CTRL-r kan du bläddra genom sökresultaten
+
+3. Trycka på CTRL-c
+
+	då kommer sökfältet att stängas
+
+
+Att editera kommandon
+=====================
+
+Om du märker att du skrivit något fel i ditt kommando kan du snabbt flytta kursorn till
+rätt ställe utan att trycka på piltangenterna.
+
+CTRL-a 	flyttar dig till början av raden 	(a = första)
+
+CTRL-e 	flyttar dig till slutet av raden 	(e = end)
+
+ALT-b 	flyttar dig till början av förra ordet 	(b = bakåt)
+
+ALT-f 	flyttar dig framåt till nästa ord 	(f = framåt)
+
+ALT-d 	raderar ordet efter kursorn 		(d = delete)
+
+
+
+
+
+
+
+
+
+

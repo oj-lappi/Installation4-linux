@@ -1,0 +1,344 @@
+shell
+
+Definitioner
+============
+Terminal
+--------
+
+Gammal arbetsstation som kunde överföra text till en dator som fanns annanstans. Man brukade ringa (med kopparkabeltelefon) till en dator som många mänskor använde samtidigt.
+
+Terminalemulator
+----------------
+Eftersom datorer inte fungerar på samma sätt mera är det en emulator som nu kör på skärmen.
+
+
+Shell
+-----
+
+Det yttersta "skalet" av operativsystems kernel ("kärnan"), ett program som tolkar texten du skriver i terminalen som kommandon till operativsystemet.
+Det finns många olika skal som kan användas för att komma åt kerneln, Ubuntu har som default bash (Bourne Again Shell)
+Vissa skal är grafiska, t.ex. Windows användargränssnittet, och det grafiska gränssnittet ni nu använder i Ubuntu. 
+Dessa brukar ofa kallas Desktop environment, medans man vanligtvis anser ett textbaserat gränssnitt med "shell".
+
+Kernel
+------
+
+Kärnan av operativsystemet, ett program som ger ut processortid och minne till andra program & bestämmer i vilken ordning andra program kör
+
+Användarprogram
+---------------
+
+Program som går att kallas via en shell, dessa kan vara portabla, dvs. de kan fungera på många Unixlika plattformer. 
+Det finns många program och de körs genom att skriva programmets namn.
+
+Kort tutorial
+=============
+
+Se att du har installerat Ubuntu på t.ex. VirtualBox.
+
+Starta upp Ubuntu och öppna terminalen.
+
+Du är nu inne i en terminalemulator som är kopplad till operativsystemet via en shell.
+
+
+1.Hur man kör program och filsystemet
+=====================================
+
+Exempel 1.a
+-----------
+
+Om vi vill köra ett program skriver vi programmets namn:
+
+Skriv: 
+
+	ls
+
+och tryck på Enter.
+
+
+ls är ett användarprogram som listar (LiStar) filer som finns i en katalog. 
+
+En katalog är en mapp. Kataloger är också filer.
+
+Unix använder ett hierarkiskt filsystem. Filsystemet är organiserat som ett träd. Längst ner finns katalogen /, roten av filsystemet. 
+
+Under / är filsystemet delat i vissa bestämda kataloger:
+	/bin	innehåller program du kan köra
+	/lib	innehåller kod som kan återanvändas av många program (bibliotek)
+	/etc	innehåller konfigurationsfiler för program
+	/dev	innehåller information om komponenter som är kopplade till datorn, t.ex. hårdskivan, processorn, osv.
+	/proc	innehåller information om processer som kör på datorn
+	/home	innehåller användarnas home-kataloger (ungefär samma som Users\ i Windows)
+
+Exemmpel 1.b
+------------
+
+Skriv:
+	ls /
+
+och tryck på Enter för att lista alla filer i /
+
+Man säger att allt är en fil i Unix (därmed också linux)
+
+till exempel är alla datorns komponenter också representerade i filsystemet, under katalogen /dev/ (dev för devices)
+
+Exempel 1.c
+-----------
+
+Skriv:
+
+	ls /dev/disk/by-id
+
+och tryck på Enter för att lista alla skivor som är kopplade till datorn
+
+
+	/dev/disk/by-id
+
+Är en _filstig_ som börjar i roten, /
+
+Varje / betyder att vi går ner ett steg till nästa fil i filstigen. 
+
+roten av filsystemet
+│
+v
+/
+│
+└─dev
+  │
+  └disk
+   │
+   └by-id
+    ^
+    │
+    filen som filstigen /dev/disk/by-id pekar till
+
+Filstigen /dev/disk/by-id/ är alltså en address till filen "by-id" som ligger i katalogen "disk" som ligger i katalogen "dev" som ligger i katalogen "/"
+Du märker säkert att webbsidors urler fungerar på samma sätt t.ex. www.catb.org/jargon/html/index.html pekar på sidan index.html som finns under html på sidan jargon som ligger under sidan www.catb.org
+Windows använder \ istället för / vilket gör saker svårare för många orsaker. Detta är bara en av många orsaker att gilla Linux mera än Windows :)
+
+Filstigar kan börja från rotkatalogen av filsystemet /, då kallas de för absoluta filstigar
+Filstigar kan börja från den nuvarandea katalogen (current directory, working directory), de kallas för relativa filstigar.
+
+Exempel 1.d
+-----------
+
+Om du vill testa en relativ filstig kan du t.ex. skriva 
+
+	ls Documents
+
+För att skriva ut alla filer som finns i Documents relativt till den nuvarande katalogen
+
+nuvarande katalog
+│
+v
+.
+│
+└─Documents
+  ^
+  │
+  filen som filstigen Documents (eller ./Documents) pekar till
+
+Det finns två specialnamn som pekar på olika kataloger beroende av den nuvarandea katalogen:
+
+	- . (punkt) pekar på den nuvarandea katalogen
+	- .. (punkt punkt) pekar på förälder-katalogen (parent directory)
+
+Det går att gå "uppåt" i katalog-hierarkin med hjälp av ..
+
+Exempel 1.e
+-----------
+
+Skriv:
+	
+	ls ..
+
+ nuvarande katalog
+	│
+	v
+	.
+     ..─┘
+     ^
+     │
+     filen som filstigen .. pekar till
+
+Detta listar alla filer som finns i din home-katalogs förälder-katalog
+
+Exempel 1.f
+-----------
+
+Skriv:
+
+	ls ../..
+
+
+ nuvarande katalog
+        │
+        v 
+        .
+	│
+     ..─┘  
+     │
+  ..─┘
+  ^ 
+  │
+  filen som filstigen ../.. pekar till
+
+
+Detta listar alla filer i din förälder-katalogs förälder-katalog, vilket i detta fall råkar vara samma som /
+
+Exempel 1.g
+-----------
+
+Det går alltså komma åt de filer som fanns i /dev/disk/by-id också med filstigen ../../dev/disk/by-id
+
+	ls ../../dev/disk/by-id
+
+
+nuvarande katalog
+      │                                                                              
+      v                                                                              
+      .
+      │
+   ..─┘  
+   │
+..─┘ 
+│
+└─dev
+  │
+  └disk
+   │
+   └by-id 
+    ^
+    │
+    filen som filstigen ../../dev/disk/by-id pekar till
+
+Det här är alltså samma katalog som i exempel 1.c, men definierad med en annorlunda filstig
+
+Fråga:
+
+	Är det ett problem att många filstigar kan peka på samma fil?
+	Om ett program till exempel ville testa ifall två filer är samma, men den fick in två filstigar för samma fil, men som tar olika vägar, hur kan den då bestämma att det är fråga om samma fil?
+
+Svar:
+
+	Det finns ett standard-sätt att bestämma en filstig som identifierar filen, den kallas för den kanoniska filstigen (canonical filepath)
+	På linux kan man använda programmet realpath för att bestämma den kanoniska filstigen till en fil
+
+
+	kommandot:
+
+		realpath /dev/disk/by-id/..
+
+	skriver ut den kanoniska filstigen /dev/disk
+
+
+2. Att röra sig i filsystemet
+=============================
+
+Vi har talat ganska mycket om den nuvarande katalogen, men vad är den?
+
+Skriv:
+
+	pwd
+
+för att skriva ut den nuvarande katalogen
+
+pwd är ett användarprogram som printar den nuvarande katalogen (pwd = print working directory)
+
+Vi kan förflytta oss genom filsystemet genom att byta nuvarande katalog
+
+Skriv:
+
+	cd Documents
+
+för att byta katalog 
+
+cd är ett användarprogram som flyttar dig till en ny katalog i filsystemet (cd change directory)
+
+Skriv igen pwd för att se hela filstigen till katalogen Documents.
+
+3. Att skapa filer
+==================
+
+Före du fortsätter, skriv:
+	
+	cd
+
+om du inte ger en filstig till cd byter cd katalog till din home-katalog
+
+Det finns många sätt att skapa filer i Linux:
+
+
+touch
+-----
+	touch filnamn
+
+programmet touch skapar en tom fil med namnet "filnamn"
+
+
+mkdir
+-----
+
+	mkdir katalognamn
+
+programmet mkdir skapar en tom katalog med namnet "katalognamn"
+
+Redirection med > & >>
+----------------------
+
+Med hjälp av vissa speciella tecken kan vi ändra vart programmet skriver ut sin output. 
+
+Output-redirection med >
+------------------------
+
+> fångar outputten till terminalen innan den hinner komma fram, och skickar den istället vidare nån annanstans
+
+Ifall nån-annanstans är ett filnamn skrivs den filen över med outputten från programmet. Ifall det inte finns en fil skapas den.
+
+Output-redirection med >>
+-------------------------
+
+>> fungerar på samma sätt, förutom att ifall filen redan finns skrivs outputten till slutet av filen, den gamla datan försvinner inte.
+
+
+Vi kan alltså skapa en fil med data genom att skriva:
+
+	ls > ls_output
+
+Nu borde det alltså finnas en fil som heter ls_output
+
+
+4. Att läsa filer
+=================
+
+Om vi vill läsa filer har vi olika verktyg baserat på vad vi vill göra med filen:
+
+Om du själv vill läsa innehållet i en fil-läsare
+------------------------------------------------
+
+Det finns många program som kan läsa filer i linux, en bra pager (läsare) är programmet less, som du kan läsa filer med.
+
+Skriv:
+
+	less  ls_output
+
+Om du i förra steget hade skapat filen kommer du nu att se vad den innehåller.
+
+För att stänga less, skriv:
+
+	q (som i quit)
+
+
+Om du vill läsa innehållet i terminalen
+---------------------------------------
+
+Om du istället vill läsa innehållet till terminalen kan du använda programmet cat
+
+	cat ls_output
+
+Dumpar innehållet till terminalen
+
+cat är ett användarprogram som konkatenerar (con_cat_enate: sammansätta) innehållet av filer och skriver ut dem.
+
+Mera i nästa lektion. Om ni vill kan ni läsa mera på: http://tldp.org/LDP/abs/html 
+

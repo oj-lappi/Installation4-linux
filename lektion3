@@ -1,0 +1,315 @@
+Ihopkoppling av program och filer
+=================================
+
+I Linux är det enkelt att koppla ihop program med varandra, och filer till program.  Om
+man vet vad man gör behöver man bara några tecken för att skapa nya program genom att
+koppla ihop andra program.
+
+
+1. Fildeskriptors
+-----------------
+
+Alla program har tre kanaler som är kopplade till dem. En input-kanal och en output-kanal.
+Kanalerna har id:n som kallas för file-descriptor.
+
+
+Namn			Riktning	ID(file-descriptor)
+-------			-------		--------------------
+Standard input		input		0
+Standard output		output		1
+Standard error		output		2
+
+
+Vissa program (sällan) kan ha flera än tre kanaler, men dessa tre finns *ALLTID*
+
+Input
+-----
+
+stdin är en kanal för input som alla program har och den kanalen kan kopplas fast i vad
+som helst för att läsa input från t.ex.:
+
+	- tangentbordet
+	- en fil
+	- ett annat program
+	- en annan dator nånstans på nätet
+
+Output
+------
+
+stdout och stderr är kanaler för output som alla program har och de kan också kopplas
+fast i vad som helst för att skriva ut outputten till t.ex.:
+
+	- terminalen (default)
+	- en fil
+	- ett annat program
+	- en annan dator nånstans på nätet
+
+*MEN* de är skilda kanaler och man kan skriva error-outputten annanstans än vart man
+skriver normala outputten.
+
+
+┌───────────────────────────────────────────────────────────────┐
+│2. Program och filer						│
+└───────────────────────────────────────────────────────────────┘
+
+2.1 Output redirection med >
+----------------------------
+
+För att rikta om en kanal så att den inte skriver till terminalen utan till en fil kan
+vi använda tecknet >
+
+Sättet att göra det här är att skriva:
+
+	kommando kanalens-id> filnamn
+
+> kommer att skapa en ny fil om en fil inte finns och radera innehållet i filen om den finns
+
+Exempel
+-------
+
+2.1.1 Rikta standard output till en fil som heter fil:
+
+	ls / 1> fil
+
+Eftersom detta är det normala fallet kan man lämna bort id:n (ettan):
+
+	ls / > fil
+
+2.1.2 Rikta standard error till en fil som heter error_fil:
+
+	ls fil_som_inte_finns 2> error_fil
+
+2.1.3 Rikta standard output till en fil, och standard error till en annan fil:
+
+	ls fil_som_kanske_finns 1> fil 2> error_fil
+
+
+2.2 Output redirection med >>
+-----------------------------
+
+>> fungerar likadant, förutom att >> inte raderar innehållet i filen om den redan finns,
+utan lägger till i ändan av filen
+
+Exempel                                                  
+-------                                                  
+
+2.2.1 Rikta standard output till en log som heter fil:
+
+        ls / 1>> log   
+
+Eftersom detta är det normala fallet kan man lämna bort id:n (ettan):
+
+        ls / >> log
+        
+2.2.2 Rikta standard error till en log som heter error_log:
+
+        ls fil_som_inte_finns 2>> error_log   
+        
+2.2.3 Rikta standard output till en fil, och standard error till en annan fil:
+
+        ls fil_som_kanske_finns 1>> log 2>> error_log 
+
+OBS! skriv aldrig till en logg med >, använd >> istället. Annars innehåller loggen
+endast det sista som hänt.
+
+
+2.3 Input redirection med <
+---------------------------
+
+Vi kan läsa in i en kanal från en fil med hjälp av <:
+
+	kommando kanalens-id< filnamn
+
+Exempel:
+
+2.3.1 Läs in en fil till standard input av ett program
+
+┌───────────────────────────────────────────────────────────────────────────────────────┐
+│Vi måste förbereda en fil innan vi kan testa input-redirection.			│
+│Använd en text-editor för att skapa en fil som heter dagbok med följande innehåll:	│
+│											│
+│dagbok											│
+│───────────────────────────────────────────────────────────────┐			│
+│hej dagboken,							│			│
+│idag lärde jag mig hur man använder input redirection i linux	│			│
+│jättekiva!							│			│
+│okej, hejdå!							│			│
+└───────────────────────────────────────────────────────────────┴───────────────────────┘
+
+grep är ett program som går genom sin standard input,hittar och printar ut alla rader
+som innehåller en söktext 
+
+	grep hej 0< dagbok
+
+OUT:
+	hej dagboken,
+	okej, hejdå!
+
+Vi kan också här lämna bort nollan om vi läser till stdin-kanalen
+
+	grep hej < dagbok
+
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│Minnesregler
+├───────────────────────────────────────────────────────────────────────────────┤
+│										│
+│Filer kopplas ihop med kanalerna till ett program med > och < 			│
+│										│
+│Programmet är alltid på vänster sida om > eller < och filen på höger sida	│
+│										│
+│program > fil									│
+│program < fil									│
+├───────────────────────────────────────────────────────────────────────────────┤
+│Informationen går alltid i "pilens" riktning.					│
+│										│
+│program > fil									│
+│										│
+│	information flöder från programmet till filen				│
+│										│
+│program < fil									│
+│										│
+│	information flöder från filen till programmet				│
+└───────────────────────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│3. Koppla ihop program med program						│
+└───────────────────────────────────────────────────────────────────────────────┘
+
+Vi kan koppla ihop ett programs stdout med stdin av nästa program med | = ett rör 
+(engelska "pipe")
+
+Rörtecknet | är Altgr-< på ett finskt tangentbord
+Alltså altgr och knappen till vänster om z
+
+Exempel:
+
+3.1 hitta alla program i katalogen /bin som innehåller "man" i sitt namn
+
+	ls --recursive /bin | grep man 
+
+3.2 hitta alla program i katalogen /bin som innehåller "man" i sitt namn och sortera 
+dem i omvänd alfabetisk ordning
+
+	ls --recursive /bin | grep man | sort --reverse
+
+3.3 hitta alla processer som kör som har nåt att göra med root 
+(root = användare med ALLA rättigheter i systemet, en sorts super-admin)
+
+	ps -axu | grep root
+
+3.4 hitta alla processer som kör som har nåt att göra med din användare
+
+	ps -axu | grep {ditt användarnamn här}
+
+
+Förklaring
+----------
+
+ps är ett program som listar processer som kör på datorn
+(-axu betyder: alla processer (-a), också utan terminal (-x) printa användarinformation (-u)
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│Filterprogram									│
+├───────────────────────────────────────────────────────────────────────────────┤
+│Program som grep och sort kallas för _filter_					│
+│										│
+│Filterprogram är program som ändrar (filtrera) en text till en annan text	│
+│Sådana filterprogram kan ofta sättas många i rad för att åstadkomma en effekt	│
+└───────────────────────────────────────────────────────────────────────────────┘
+
+Exempel på filterprogram, lek runt lite med dem:
+
+filter		effekt
+------		------
+
+grep		visa bara rader som passar ett visst text-mönster (kolla "man grep" för
+		mera info)
+
+sort		sorterar rader i text alfabetiskt (kolla "man sort" för hur du kan
+		sortera på andra sätt)
+
+head		visa endast de första raderna av en text (10 rader är default)
+
+tail		visa endast de sista raderna av en text (10 rader är default)
+
+tac		reversera raderna i en text
+
+tr		översätt bokstäver (eller symboler) till andra bokstäver (eller symboler)
+		t.ex. 
+			echo "windows är najs"|tr n b		byter ut n till b
+			echo "040 010 3456"|tr 0-9 X		byter ut alla siffror till X
+			echo "helan går" | tr -s åg ök		byter ut å till ö, g till k
+			echo "heeeeeeeej" | tr -s e a  		-s byter ut repeterade
+								bokstäver till en enda bokstav
+
+uniq		ta bort duplikerade rader i en sorterad text
+
+uniq -c		ta bort duplikerade rader i en sorterad text, skriv hur många rader som
+		fanns före varje rad i outputten
+
+cut 		välj bara vissa delar av en rad
+		t.ex.
+			cut -c1-4 < dagbok			läser de 4 första
+								tecknen i filen dagbok
+			
+tee		skriv till en fil, men skriver också till stdout, användbart om man vill
+		spara mellanresultat
+
+		t.ex. 
+
+			ps -a -x -u | tee alla_processer.txt | grep root
+			sparar mellanresultat i en fil som heter alla_processer.txt
+
+
+wc		räknar rader, ord, eller tecken i en text
+
+	wc -l 	räknar rader
+	wc -w 	räknar ord
+	wc -m 	räknar tecken
+
+nl		sätt radnummer framför rader
+
+		nl < dagbok
+
+
+Övningar
+========
+
+Skriv dessa med hjälp av redirection, pipes, grundprogram som du känner till (t.ex. ls)
+och filterprogram
+
+1. Skriv ett kommando som skriver ut en nummrerad lista av filerna i din home-katalog
+
+2. Skriv ett kommando som räknar hur många filer finns i din home katalog
+
+3. Skriv ett kommando som skriver ut en text, så att varje ord är på en ny rad
+
+	tips: finns det ett kommando för att byta ut tecken till andra tecken?
+		(' ' är tecknet för mellanslag, '\n' är tecknet för ny rad)
+
+4. Skriv ett kommando som skriver ut en sorterad lista på hur ofta ord förekommer i en text
+
+	tips: 
+		- använd programmet du skrev i övning 3 som bas
+		- kan du räkna hur ofta rader förekommer med nåt filter?
+
+5. /etc/passwd innehåller en lista av alla användare, skriv ett kommando som skriver ut
+   alla användare som använder /bin/sh
+
+	tips: 
+		- kan du söka efter rader i en text med nåt filter?
+		- använd cut med -d: (kolon som separator)
+
+6. Skriv ett kommando som listar alla usb-apparater som är tillverkade av lenovo
+	tips: lsusb är ett program som listar alla usb-apparater som är kopplade till datorn 
+
+7. Skriv ett kommando med hjälp av filter och pipes som skriver ut de 10 processerna som
+   har kört längst på systemet.
+
+	tips: 
+		- använd ps för information om processer
+		- använd cut för att välja ut tiden
+		- cut kollar på fält som är separerade med tabs, så du måste först
+		  använda tr för att byta ut alla mellanslag till tab 
+		  (mellanslag skrivs ' ', tab skrivs '\t')

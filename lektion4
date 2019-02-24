@@ -1,0 +1,296 @@
+Filträd och filsystem
+=====================
+
+Filsystemet i Linux är organiserat i _en_ enda hierarki. Det betyder att alla
+filer ligger under rotkatalogen / 
+
+Vi kallar detta filsystem som börjar i / för filträdet.
+
+Till skillnad från Windows var varje ny lagringsenhet (hårdskivor, cd-läsare,
+usb-stickor) syns som en ny "drive" (C: D: E: etc.) är alla lagrade data i Linux
+tillgängliga i samma filträd.
+
+Kort om lagringsenheter
+=======================
+
+En lagringsenhet är en hårdskiva, en ssd, en usb-sticka, en cd-skiva etc.
+
+Partitioner
+-----------
+
+Lagringsenheter är indelade i partitioner. Partitioner är inget magiskt, de är
+bara delar av hela lagringsenheten. Det finns två standardsätt att partitionera
+lagringsenheter, gamla MBR och nya GPT. Använd endast MBR om hårdvaran inte
+stöder GPT. Hur dessa skiljer sig behöver du inte oroa dig om, det är på en
+nivå som sköts av program, till en användare ser de exakt lika ut. 
+
+Det går att ompartitionera en lagringsenhet t.ex. med programmet gparted. Obs!
+Tänk genom vad du gör om du ompartitionerar en hårdskiva, det kan vara att data
+försvinner. Gör en säkerhetskopia om du är osäker.
+
+Lagringsenheter kan också var opartitionerade, alltså bestå av en enda
+datablobb, en sådan lagringsenhet kallas för en superfloppy eller partitionslös
+lagringsenhet. Superfloppies är ovanliga.
+
+Filsystem i partitioner
+-----------------------
+
+För att kunna använda en lagringsenhet i Linux måste det finnas ett filsystem
+installerat på någon partition. Filsystemet är lite som en tabell som håller
+reda på vilken data som hör till vilken fil, plus annan information om filer
+såsom vem som äger filen, och vilka rättigheter filen har.
+
+När man talar om filsystem kan det alltså vara lätt att rådda bort sig mellan
+ett filsystem på en lagringsenhet och filsystemet som helhet. Det är därför jag
+kallar hela filsystemet (som börjar i /) för filträdet.
+
+Montering!
+----------
+
+Vi vet redan att filsystem har en trädstruktur (som ett släktträd), det finns en 
+rotkatalog och under den katalogen finns det filer och underkataloger.
+
+Linux monterar de enskilda filsystemen in i filträdet. Det betyder att
+vi väljer en katalog i filträdet som monteringskatalog (eng. mount point) och 
+fäster filsystemet i den katalogen.
+
+Alla filer som tidigare fanns i katalogen blir försvinner (tillfälligt) och
+katalogen fylls med innehållet av det monterade filsystemet.
+
+Mount points brukar därför vara tomma kataloger.
+
+Linux monterar vissa filsystem automatiskt vid bootning. Du kan kolla vilka alla 
+filsystem som är monterade genom att köra:
+
+	mount
+
+Det finns två program som sköter montering av filsystem: mount och umount
+
+mount
+=====
+
+Monterar ett filsystem
+
+Användning:
+
+	mount filsystem filstig_till_monteringskatalog
+
+exempel:
+	
+	mount /dev/sdb1 /mnt
+
+		Monterar filsystemet som finns i första partitionen av hårdskivan sdb i
+		monteringspunkten /mnt (en tom katalog)
+
+	mount
+
+		Visar information om alla monterade filsystem
+
+umount
+======
+
+Avmonterar ett filsystem
+
+Användning:
+
+	umount monteringskatalog
+
+	eller
+
+	umount filsystem
+
+
+exempel:
+
+	umount /dev/sdb1
+
+	eller
+
+	umount /mnt
+
+	avmonterar filsystemet vi monterade i förra uppgiften
+
+Vanligtvis är bestäms filsystemet vi monterar via en filstig till katatlogen
+/dev, var alla lagringsenheter som är kopplade till datorn syns. Det går också
+att montera iso-filer, då man det via en loop-device.
+
+En iso-fil är alltså en "bild" (eng. image) av en hårdskiva.
+
+
+/dev är också ett filsystem, men inte ett vanligt sådant.
+
+Automatisk montering av filsystem
+=================================
+
+När Linux bootas monteras som sagt en del filsystem automatiskt. Vilka system
+som monteras och deras inställningar bestäms av filen /etc/fstab.
+
+Om en 
+
+Vad detta möjliggör
+===================
+
+Eftersom vi fritt kan montera filsystem in i filträdet är följande saker
+möjliga:
+
+Lagra olika delar av systemet på olika filsystem
+------------------------------------------------
+
+Vi kan använda system som är optimerade för snabbhet eller system som
+säkerhetskopierar data och loggar ändringar för olika delar av systemet som har
+olika behov. 
+
+Portabel /home katalog
+----------------------
+
+Vi kan montera /home på en egen partition/skiva och använda /home som
+hemkatalog för många system
+
+Separerbar lagringsenhet
+------------------------
+
+Om du har känslig information som används av systemet kan du lagra det på en skild
+krypterad skiva och skriva automatiska monteringsregler som monterar den skivan
+på rätt ställe när du kopplar den till datorn. Då kan din data vara tryggare än
+om den alltid är fast i datorn.
+
+Använd Linux som ett verktyg för att analysera söndriga system
+--------------------------------------------------------------
+
+Vi kan boota från Linux på en USB-sticka/CD och montera hårdskivan för att läsa
+filer, testa system, etc. speciellt användbart om du vill rädda data från ett
+system som inte längre startar.
+
+Olika sorters filsystem
+=======================
+
+"Vanliga" filsystem
+-------------------
+
+Vi sade tidigare att det fanns filsystem installerade på lagringsenheter.
+
+Nå, tekniskt sett behöver det inte finnas filsystem på en lagringsenhet, men om
+du vill kunna spara filer på en hårdskiva eller usb-sticka så måste det finnas
+ett filsystem installerat.
+
+Exempel på olika filsystem som kan installeras på lagringsenheter:
+
+	ext4 		- standardfilsystem för Linux
+
+	ufs		- Unix File System, gammalt standardfilsystem, kan vara
+			  bra ifall kompabilitet mellan olika Unix-system är ett
+			  krav
+	
+	xfs 		- kan hantera väldigt många simultana I/O-operationer,
+			  stora filer, kan repareras snabbt om datorn kraschar
+			  mitt i en I/O-operation (det kan zfs och btrfs också
+			  iofs)
+
+	zfs, btrfs 	- kan bl.a. reparera korrupterade filer, säkerhetskopiera 
+			  filer. Nyare filsystem än de andra som nämns här.
+	
+	+ fler
+
+Andra filsystem?
+----------------
+
+Som tidigare nämndes kan man alltså mounta iso-filer som delar av systemet. Men
+inte nog med det. Nästan vad som helst kan vara ett filsystem, så länge som det
+fungerar som ett filsystem. Det ska kunna ta emot filsystemskall för att läsa
+och skriva information. 
+
+Vad krävs av ett filsystem?
+===========================
+
+A
+
+Andra filsystem!
+----------------
+
+Just på grund av att filsystem är ett så löst begrepp, och att det är enkelt att
+tänka på alla filer som "saker" som finns på en plats används filträdet för att
+organisera information om annat än filer. Du såg redan hur många system som
+fanns monterade när du körde mount. Men i fstab fanns det bara några rader.
+Resten av filsystemen som är monterade är speciella filsystem. Filerna som finns
+här är bara ett enkelt sätt att tala med datorn.
+
+De speciella filsystemen är:
+	
+	- devfs
+		Håller reda på vilka enheter är kopplade till datorn, t.ex.
+		hårdskivor, tangentbord, processor, terminal-emulatorer, etc.
+
+		Mountad under /dev
+
+	- sysfs
+		Ett gränssnitt till kerneln, du kan läsa inställningar och i
+		vissa fall ändra på inställningar genom att skriva till filerna.
+
+		Det finns massor av inställningar här
+
+	- proc
+		Information om processer som kör, monteras under /proc
+
+	- tmpfs
+	
+		Filsystem för temporära filer, ett finns alltid monterat under /tmp
+		men kan monteras annanstans också, t.ex. /run
+
+	- configfs
+		
+		Ett till gränssnitt till kerneln som kan skapa, ändra och radera
+		kernel-inställningar. Skiljer sig från sysfs eftersom detta
+		endast innehåller sådana inställningar som användaren skapat
+		
+		Monteras under /sys/kernel/config eller /config, baserat på
+		vilken linux-distro du använder
+
+	+ fler
+
+Om ni någonsin undrar om vad en del av filsystemet gör, läs:
+
+	man hier
+
+Användbara program
+==================
+
+Läs manualen för dessa för att förstå hur de fungerar:
+
+lsblk - Lista block devices (lagringsenheter) och var de är mountade. 
+	Kan också ta fram mer info med argumentet -o
+
+lsusb - lista usb-enheter
+
+mount - mounta en lagringsenhet eller iso-fil
+	Måste använda sudo.
+
+file  - se vilken filtyp en fil är
+
+blkid - läs UUID (id:n) av en lagringsenhet eller partition. Annan info också.
+	Måste använda sudo.
+
+Uppgifter
+=========
+
+Skriv ner kommandon ni använt samt resultatet i filer, så att jag kan bedöma om
+ni gjort rätt.
+
+1. Sök fram vilken partition på vilken skiva ditt filträd finns på, den som är mountad i /
+	tips: lsblk,mount
+
+2. Sök fram den partitionens UUID och UUID för skivan den ligger på
+	tips: blkid
+
+3. Sök fram info om tillverkare och modell
+	tips: lsblk
+
+4. Ladda ner filen mountme.iso från
+
+
+5.
+
+
+6.
+
+
+7.

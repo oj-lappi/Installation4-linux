@@ -1,0 +1,32 @@
+Linux
+
+Det finns ett gammalt operativsystem som heter Unix.
+
+Linux är ett system som bygger på Unix.
+
+Vi säger att Linux är Unixlikt.
+
+Unixlika system anpassar sig väldigt bra till programmering. Så gott som alla servrar som finns är också Unixlika.
+
+Det som skiljer Unix åt från många andra system är Unix-filosofin:
+
+	Ett program ska göra en sak bra, om något nytt måste göras, skriv ett nytt program.
+	Anta att output från ett program kommer att bli inputn till ett annat program.
+	Gör outputten ren, helst text, för att text är lätt att processera.
+
+
+Unix-system består av en kernel och en stor mängd program som kan kopplas ihop för att utföra mer komplicerade uppgifter. 
+Unix-program har vanligtvis väldigt utförliga manualer, som går att läsa direkt från terminalen.
+
+
+Under kurssen ska vi lära oss att:
+	- installera Unix
+	- använda shell (terminalen)
+	- använda ssh
+	- använda git
+	- använda docker
+
+
+Första timmen, installera Ubuntu
+När de börjar bli färdiga, skicka link till http://www.ee.surrey.ac.uk/Teaching/Unix/unixintro.html
+Om de blir färdiga får de försöka lägga till en användare

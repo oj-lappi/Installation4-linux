@@ -1,0 +1,157 @@
+man
+===
+
+man är manualen, de flesta program har en manual. Manualsidor finns även om andra saker.
+
+Exempel
+-------
+
+1. man <program eller koncept>
+
+	läs manualen om saken
+
+1.1 man ls
+	
+	läs manualen för kommandot ls
+
+1.2 man man
+
+	läs manualen för kommandot man
+
+1.3 man ext4
+
+	läs vad manualen vet om filsystemet ext4
+
+Hur du använder manualen:
+-------------------------
+
+tangent		Vad som händer
+-------		--------------
+PAGE-DOWN	Skrolla ner en sida
+PAGE-UP		Skrolla upp en sida
+CTRL-D		Skrolla ner en halv sida
+CTRL-U		Skrolla upp en halv sida
+UPP		Skrolla ner en rad
+NER		Skrolla upp en rad
+q		Stäng manualen
+
+
+ls
+==
+
+ls listar filer på datorn.
+
+Exempel
+-------
+
+1. ls
+
+	listar filer i den nuvarande katalogen
+
+2. ls /home
+	
+	listar filer i filstigen (/home i detta fall)
+
+3. ls -a
+	
+	listar filer, inklusive _gömda_ filer (gömda filer är filer vars namn börjar med
+	en punkt, ls listar inte dem utan -a flaggan).
+
+4. ls -l 
+
+	listar filer, plus extra information om filer, t.ex. rättigheter till filen,
+	filägare, vilken typs fil, filstorlek
+
+5. ls -lh
+	
+	samma som ls -l, men filstorlekar är i mänskligt läsliga format (4.0K istället
+	för 4096)
+
+cd
+==
+
+cd byter katalog (cd = change directory)
+
+Exempel
+-------
+
+1. cd /<filstig>
+
+	byter nuvarande katalog till filstigen 
+
+1.1. cd /etc
+	
+	byter nuvarande katalog till /etc
+
+1.2 cd Downloads
+	
+	byter nuvarande katalog till Downloads (om Downloads finns i den katalog du är i
+	när du utför kommandot)
+
+1.3 cd ~
+
+	byter nuvarande katalog till ~ (din home-katalog)
+
+2. cd
+
+	cd utan argument byter också nuvarande katalog till ~ (din home-katalog)
+
+
+mkdir
+=====
+
+mkdir skapar en katalog (mkdir=make directory)
+
+
+Exempel
+-------
+
+1. mkdir ny_katalog
+
+	skapar en ny katalog som heter ny_katalog i den nuvarande katalogen
+
+2. mkdir ~/ny_katalog
+
+	skapar en ny katalog som heter ny_katalog i din home-katalog
+
+rm
+==
+
+rm raderar en fil (rm = remove)
+
+Exempel
+-------
+
+1. rm filnamn
+
+	raderar en fil som heter filnamn
+
+2. rm -r katalognamn/ 
+
+	raderar alla filer under en katalog, och katalogen (-r = rekursiv)
+
+3. rm -rf katalognamn/
+
+	raderar alla filer under en katalog och katalogen UTAN ATT FRÅGA "ÄR DU SÄKER?"
+	FÖR ALLA FILER (-f = force)
+
+
+!!! OBS, OM DU EXEKVERAR FÖLJANDE KOMMANDO KOMMER ALLA FILER ATT RADERAS OCH SYSTEMET BLI OANDVÄNDBART !!!
+
+4. rm -rf / 
+
+	raderar alla filer under rot-katalogen inklusive rotkatalogen (= alla filer på
+	hela systemet) UTAN ATT FRÅGA DIG OM DU ÄR SÄKER
+
+cat
+===
+
+printar ut innehållet av en eller flera texter till stdout
+
+1. cat filnamn
+
+	skriver ut innehållet av filnamn
+
+2. cat fil1 fil2
+
+	skriver ut innehållet av fil1 och fil2, efter varann
