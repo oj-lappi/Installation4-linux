@@ -123,9 +123,8 @@ Automatisk montering av filsystem
 =================================
 
 När Linux bootas monteras som sagt en del filsystem automatiskt. Vilka system
-som monteras och deras inställningar bestäms av filen /etc/fstab.
-
-Om en 
+som monteras och deras inställningar bestäms av filen /etc/fstab. Du kan t.ex. 
+mounta en extern hårdskiva automatiskt härifrån.
 
 Vad detta möjliggör
 ===================
@@ -202,7 +201,40 @@ och skriva information.
 Vad krävs av ett filsystem?
 ===========================
 
-A
+- En fil i systemet har ett namn
+
+- En fil kan läsas och skrivas
+	kan t.ex. kopplas till stdin eller stdout med < och >
+
+- En fil har rättigheter
+	får de läsas, skrivas, exekveras?
+
+- Någon äger filen
+
+- Alla filer hör till en av dessa 7 filtyper:
+	1   vanlig fil
+	2   katalog
+	3/4 device-fil
+		tekniskt sett finns två typer: 3 character-fil & 4 block-fil
+		character-filer används inte i Linux mera
+
+	5   FIFO
+		en FIFO (First In First Out) är en pipe med ett namn. Fungerar på 
+		samma sätt som en fil, men datan skrivs aldrig till skivan, utan 
+		en process skriver och en annan process läser datan.
+
+	6   sockets
+		Sockets är filer som används för att skicka och ta emot data 
+		mellan processer, vanligtvis processer som kör på två olika 
+		datorer. Många processer kan skriv och läsa till en socket, till
+		skillnad från FIFOn.
+		Används av nätverksprotokol.
+
+	7   en symbolisk länk
+		En länk till en annan fil
+
+Så länge som alla dessa villkor uppfylls (bland andra) kan vad som helst vara ett 
+filsystem.
 
 Andra filsystem!
 ----------------
@@ -290,13 +322,15 @@ Uppgifter
 Skriv ner kommandon ni använt samt resultatet i filer, så att jag kan bedöma om
 ni gjort rätt.
 
-1. Sök fram vilken partition på vilken skiva ditt filträd finns på, den som är mountad i /
+1. Sök fram vilken partition på vilken skiva ditt filträd finns på, den som är 
+   mountad i /
 	tips: lsblk,mount
 
 2. Sök fram den partitionens UUID och UUID för skivan den ligger på
 	tips: blkid
 
-3. Sök fram info om tillverkare och modell
+3. Sök fram info om tillverkare och modell av skivan. Sök fram vilket filsystem som 
+   skivan har.
 	tips: lsblk
 
 4. Ladda ner filen mountme.iso från https://github.com/oj-lappi/Installation4-linux
