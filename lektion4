@@ -261,13 +261,28 @@ lsblk - Lista block devices (lagringsenheter) och var de är mountade.
 
 lsusb - lista usb-enheter
 
-mount - mounta en lagringsenhet eller iso-fil
+mount   mounta en lagringsenhet eller iso-fil
 	Måste använda sudo.
 
-file  - se vilken filtyp en fil är
+file    se vilken filtyp en fil är
 
-blkid - läs UUID (id:n) av en lagringsenhet eller partition. Annan info också.
+blkid   läs UUID (id:n) av en lagringsenhet eller partition. Annan info också.
 	Måste använda sudo.
+
+dd      skriv över en fil från en annan fil. Kan skriva och läsa till och från
+	hårdskivor utan att gå via ett filsystem, men kan också läsa/skriva filer.
+
+	Effektivt för t.ex. säkerhetskopiering (kan skriva rakt till en hårdskiva) 
+	men farligt verktyg (kan skriva rakt till en hårdskiva!)
+
+	Med dd kan du alltså kopiera innehållet från en lagringsenhet till en
+	annan, eller kopiera innehållet till en iso-fil eller skriva en iso-fil
+	till en lagringsenhet.
+
+e2image Verktyg för att skapa säkerhetskopior av ext2, ext3 och ext4-filsystem.
+	Skapar en iso-fil
+
+
 
 Uppgifter
 =========
@@ -284,13 +299,29 @@ ni gjort rätt.
 3. Sök fram info om tillverkare och modell
 	tips: lsblk
 
-4. Ladda ner filen mountme.iso från
+4. Ladda ner filen mountme.iso från https://github.com/oj-lappi/Installation4-linux
+   Mounta filen och läs vad som finns i den. Jag kommer och kollar att ni
+   faktiskt har mountat filen.
+   
+   tips: mount med loop device
+
+   Möjliga problem med iso-filen:
+
+   	 Om det inte går kan det vara att du måste aktivera kernel modulen loop.
+	 Kör först:
+
+	 	lsmod|grep loop
+	 
+	 Om inget syns måste du köra
+	 
+	 	sudo modprobe loop
+	 
+	 Prova sedan på nytt
+
+5. Skapa en säkerhetskopia av ditt ubuntu-system med e2image eller dd. Spara det
+   Resultatet ska vara en iso-fil. 
 
 
-5.
-
-
-6.
-
-
-7.
+6. Ladda ner tails-linux från https://tails.boum.org/install/download/index.en.html
+   Använd dd för att skriva över ison till en hårdskiva (finns i klassen, fråga
+   mig) eller en usb-sticka om du har med en sådan.
