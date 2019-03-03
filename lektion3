@@ -279,7 +279,7 @@ nl		sätt radnummer framför rader
 Skriv dessa med hjälp av redirection, pipes, grundprogram som du känner till (t.ex. ls)
 och filterprogram
 
-1. Skriv ett kommando som skriver ut en nummrerad lista av filerna i din home-katalog
+1. Skriv ett kommando som skriver ut en numrerad lista av filerna i din home-katalog
 
 2. Skriv ett kommando som räknar hur många filer finns i din home katalog
 
