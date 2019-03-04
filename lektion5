@@ -30,7 +30,7 @@ Kompilerade program kör snabbare än script. Script kan vara snabbare att skriv
 
 Ifall du vill bygga ett program som:
 
- - kräver mycket resurser, t.ex. ett datorspeleller en databasapplikation
+ - kräver mycket resurser, t.ex. ett datorspel eller en databasapplikation
  - är komplicerat eller stort
  - tar in data som är strukturerat på ett komplicerat sätt
 
@@ -38,7 +38,7 @@ Ifall du vill bygga ett program som:
 
 Om du vill:
 
- - snabbtskriva en prototyp 
+ - snabbt skriva en prototyp 
  - manipulera text 
  - koppla ihop två existerande program 
  
@@ -220,7 +220,7 @@ Alla kommandon i ett shell-script får samma stdin som scriptet fått.
 
 Om ditt script heter hitta_korvar och innehåller kommandot:
 
-	grep korv |less
+	grep korv | less
 
 Så kommer:
 
@@ -236,28 +236,41 @@ Ett shell-script är alltså bara en text-fil som innehåller shell-kommandon.
 För att Linux ska fatta att filen är ett program och ska köras av ett 
 tolkprogram måste vi göra två saker.
 
-1. Vi måste ändra filrättigheterna så att filen går att köra
+1. Vi måste skriva in vilket tolkprogram som ska köra scriptet
+==============================================================
+
+Lägg till #! på första raden
+----------------------------
+
+Om du vill köra ett program som ett script i Linux (eller Unix) ska du definiera
+genom vilket program scriptet ska tolkas.
+
+Detta gör du genom att börja filen med de två tecknen #! som kallas hashbang
+eller shebang.
+
+En första rad i ett script som ser ut så här:
+
+#!/bin/sh
+
+Säger till Linux att filen ska tolkas av programmet /bin/sh
+
+Välj tolkprogram
+----------------
+
+Eftersom vi skriver ett shell-script är tolkprogrammet antagligen antingen
+/bin/sh eller /bin/bash
+
+/bin/sh finns på alla Unix-system, så om du vill att scriptet ska gå att köra
+på alla Unix-datorer använd /bin/sh. Men om du bara använder scriptet på egen
+dator kan du fritt använda /bin/bash.
+
+
+2. Vi måste ändra filrättigheterna så att filen går att köra
 ============================================================
 
-Minns att filer har rättigheter:
+Det finns tre kategorier av användare:
 
-ls -lh
-
-rwxr-xr-x  2 root    root      4096 Jun  7 19:52 skel
--rw-r--r--  1 root    root      2030 Mar  9  2018 slsh.rc
-||||┊┊┊┋┋┋    |	      |		|    |
-||||┊┊┊┋┋┋    |	      |		|    datum filen sist har ändrats
-||||┊┊┊┋┋┋    |       |		storleken på filen i bytes
-||||┊┊┊┋┋┋    |       gruppen som äger filen
-||||┊┊┊┋┋┋    användaren som äger filen
-||||┊┊┊┋┋┋    
-||||┊┊┊┋┋┋- användarrättigheter för alla andra 
-||||--- - användarrättigheter för gruppen som äger filen
-|... - användarrättigheter för användaren som äger filen
-|
-.- directory = är det en mapp (d) eller en fil (-)?
-
-De tre grupperna är:
+De tre kategorierna är:
 
  - u = user, filens ägare
  - g = group, användare som tillhör gruppen som äger filen
@@ -292,34 +305,6 @@ På samma sätt, om vi vill lägga till execute-rättigheter åt alla:
 Om du vill ta bort execute-rättigheter från en fil:
 
 	chmod ugo-x fil
-
-2. Vi måste skriva in vilket tolkprogram som ska köra scriptet
-==============================================================
-
-Lägg till #! på första raden
-----------------------------
-
-Om du vill köra ett program som ett script i Linux (eller Unix) ska du definiera
-genom vilket program scriptet ska tolkas.
-
-Detta gör du genom att börja filen med de två tecknen #! som kallas hashbang
-eller shebang.
-
-En första rad i ett script som ser ut så här:
-
-#!/bin/sh
-
-Säger till Linux att filen ska tolkas av programmet /bin/sh
-
-Välj tolkprogram
-----------------
-
-Eftersom vi skriver ett shell-script är tolkprogrammet antagligen antingen
-/bin/sh eller /bin/bash
-
-/bin/sh finns på alla Unix-system, så om du vill att scriptet ska gå att köra
-på alla Unix-datorer använd /bin/sh. Men om du bara använder scriptet på egen
-dator kan du fritt använda /bin/bash.
 
 Att köra ett shell-script
 =========================
