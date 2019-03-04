@@ -96,6 +96,7 @@ Argument
 Argument är de ord som skrivs på kommandoraden för att starta programmet. De 
 sparas i speciella variabler:
 
+```
 $0 innehåller första ordet (programmets namn)
 $1 innehåller andra ordet (första argumentet)
 $2 innehåller tredje ordet (andra argumentet)
@@ -103,6 +104,7 @@ $2 innehåller tredje ordet (andra argumentet)
 .
 .
 osv.
+```
 
 $@ innehåller alla argument
 
