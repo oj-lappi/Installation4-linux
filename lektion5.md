@@ -71,22 +71,24 @@ Du kan definiera variabler med hjälp av =
 
 T.ex:
 
+```
 best_case=Linux
 worst_case=Windows
+```
 
 
 Du kan använda variabler genom att lägga ett $, dollartecken före variabelnamn
 
 T.ex:
-
+```
 echo "Om jag har tur så kör datorn $best_case :)"
 echo "Om jag har otur så måste jag använda $worst_case :("
-
+```
 [Output]
-
+```
 Om jag har tur så kör datorn Linux :)                               
 Om jag har otur så måste jag använda Windows :(
-
+```
 
 Argument
 --------
@@ -112,11 +114,13 @@ If-satser
 
 If-satser i shell-script ser lite lustiga ut:
 
+```
 if [  <villkor> ]
 then
 	<kommando>
 	<kommando>
 fi
+```
 
 Villkoret innanför [] tolkas genom programmet test. test tar emot argument med
 en viss struktur:
@@ -147,7 +151,7 @@ Mera kan du läsa i manualen för test
 
 Du kan skriva en if-else struktur:
 
-
+```
 if [ $distro = "Ubuntu" ]
 then
 	installeraUbuntu
@@ -157,6 +161,8 @@ then
 else
 	echo "installerar ingenting"
 fi
+```
+
 
 
 && och ||
@@ -165,15 +171,18 @@ fi
 Det finns logiska operatorer:
 
  och  	 &&
+
  eller	 ||
 
 De kan läggas mellan två villkor:
 
+```
 if [ <villkor1> ] && [ <villkor2>]
 then
 	<kommando>
 	<kommando>
 fi
+```
 
 Loopar
 ======
@@ -186,31 +195,37 @@ While-loopar
 
 En while-loop är som en if-sats fast en loop:
 
+```
 while [ <villkor> ]
 do
 	<kommando>
 	<kommando>
 done
+```
 
 Använd while-loopar för att läsa in data från stdin
 ---------------------------------------------------
 
+```
 while read line
 do
 	<kommando>
 	<kommando>
 done
+```
 
 Kommer att läsa in data från stdin i variabeln $line en rad åt gången.
 
 Läs in data från en fil
 -----------------------
 
+```
 while read line
 do
 	<kommando>
 	<kommando>
 done < fil
+```
 
 Kommer att läsa in data från filen "fil" i $line en rad åt gången.
 
@@ -221,11 +236,15 @@ Alla kommandon i ett shell-script får samma stdin som scriptet fått.
 
 Om ditt script heter hitta_korvar och innehåller kommandot:
 
+```
 	grep korv | less
+```
 
 Så kommer:
 
+```
 	echo "korv"|./hitta_korvar
+```
 
 ge vidare inputten "korv" till grep
 
@@ -251,7 +270,9 @@ eller shebang.
 
 En första rad i ett script som ser ut så här:
 
+```
 #!/bin/sh
+```
 
 Säger till Linux att filen ska tolkas av programmet /bin/sh
 
@@ -293,19 +314,27 @@ Vi använder programmet chmod för att ändra rättigheterna för en fil.
 
 För att ändra ägarens rättigheter till rwx (läs, skriv, kör), skriv:
 
+```
 	chmod u=rwx fil 
+```
 
 För att lägga till execute-rättigheter åt ägaren, skriv:
 
+```
 	chmod u+x fil
+```
 
 På samma sätt, om vi vill lägga till execute-rättigheter åt alla:
 
+```
 	chmod ugo+x fil
+```
 
 Om du vill ta bort execute-rättigheter från en fil:
 
+```
 	chmod ugo-x fil
+```
 
 Att köra ett shell-script
 =========================
@@ -316,7 +345,9 @@ skriva en stig till scriptet.
 
 Om ditt script är i den nuvarande katalogen kan du alltså skriva:
 
+```
 ./script.sh
+```
 
 för att köra ett script som heter script.sh.
 
@@ -338,14 +369,18 @@ Du kan kombinera inläsning från filer med "<" med pipes "|"
 
 t.ex. 
 	
+```
 	program1 < fil | program2
+```
 
 	1. innehållet av fil blir stdin till program1
 	2. stdout från program1 blir stdin för program2
 
 Det går också att skicka inputten av en fil till stdin med <
 
+```
 exec 0<fil
+```
 
 skickar innehållet av filen "fil" till scriptets stdin. Du kan sedan använda 
 stdin som vanligt.
@@ -391,23 +426,28 @@ Du kan kopiera programmen och försöka köra dem först
 Exempel 1
 ----------
 
+```
 #!/bin/sh
 #Limma ihop två filer med cat, men i fel ordning!
 cat $2 $1
+```
 
 Exempel 2
 ---------
 
 Med $() kan du fånga outputten av ett program och genast använda det
 
+```
 #!/bin/sh
 echo "Jag heter $(whoami) och jag bor i $(pwd)"
+```
 
 Exempel 3
 ---------
 
 Vi kan skriva om programmet nl om vi vill
 
+```
 #!/bin/sh
 rad=1
 while read line
@@ -415,6 +455,7 @@ do
 	echo "$rad $line"
 	rad=$((rad + 1))
 done
+```
 
 Mer inveklade exempel
 ---------------------
@@ -428,9 +469,11 @@ för det mesta till att byta ut text till annan text.
 sed har ett eget språk, "s/ord/annat ord/g" byter ut alla "ord" till "annat ord"
 g betyder att alla "ord" ska bytas ut, annars byts bara det första
 
+```
 #!/bin/sh
 #Byt ut ett fult ord till ett mindre fult ord
 sed -e "s/fuck/fork/g"
+```
 
 Exempel 5
 ---------
@@ -438,8 +481,10 @@ Exempel 5
 sed kan också tolka ett script med flaggan -f, därför kan vi också ange sed som 
 tolk
 
+```
 #!/bin/sed -f
 s/fuck/fork/g
+```
 
 Exempel 6
 ---------
@@ -450,5 +495,7 @@ curl hämtar en webbresurs med http, jq kan läsa json
 
 Det här scriptet skriver ut Chuck Norris-skämt
 
+```
 #!/bin/sh
 curl https://api.chucknorris.io/jokes/random 2>/dev/null| jq '.value'
+```
