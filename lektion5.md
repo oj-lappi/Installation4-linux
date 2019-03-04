@@ -121,6 +121,7 @@ fi
 Villkoret innanför [] tolkas genom programmet test. test tar emot argument med
 en viss struktur:
 
+```
 Uttrycket		Är sant om...
 =========		=============
 
@@ -138,7 +139,7 @@ HELTAL1 -lt HELTAL2 	HELTAL1 är numeriskt mindre än HELTAL2
 -s FIL 			FIL existerar och har en storlek större än noll (den är inte tom)
 -w FIL 			FIL existerar och får skrivas till
 -x FIL 			FIL existerar och får köras som ett program
-
+```
 Obs, det finns inga datatyper i shell-script, allting är text, men saker kan 
 tolkas som tal.
 
