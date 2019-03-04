@@ -258,8 +258,7 @@ Ett shell-script är alltså bara en text-fil som innehåller shell-kommandon.
 För att Linux ska fatta att filen är ett program och ska köras av ett 
 tolkprogram måste vi göra två saker.
 
-1. Vi måste skriva in vilket tolkprogram som ska köra scriptet
-==============================================================
+# 1. Vi måste skriva in vilket tolkprogram som ska köra scriptet
 
 Lägg till #! på första raden
 ----------------------------
@@ -289,8 +288,7 @@ på alla Unix-datorer använd /bin/sh. Men om du bara använder scriptet på ege
 dator kan du fritt använda /bin/bash.
 
 
-2. Vi måste ändra filrättigheterna så att filen går att köra
-============================================================
+# 2. Vi måste ändra filrättigheterna så att filen går att köra
 
 Det finns tre kategorier av användare:
 
