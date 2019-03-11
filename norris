@@ -1,0 +1,2 @@
+#!/bin/sh
+curl https://api.chucknorris.io/jokes/random 2>/dev/null| jq '.value'

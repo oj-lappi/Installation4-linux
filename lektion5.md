@@ -108,6 +108,41 @@ osv.
 
 $@ innehåller alla argument
 
+Om jag skriver:
+
+mitt_script 	Jere 	Koivisto
+^		^	^
+|		|	|
+$0		$1	$2
+
+är alltså:
+$0 "mitt_script"
+$1 "Jere"
+$2 "Koivisto"
+
+inne i mitt_script
+
+Om jag skriver:
+
+mitt_script 	Oskar 	Lappi
+^		^	^
+|		|	|
+$0		$1	$2
+
+är alltså:
+$0 "mitt_script"
+$1 "Oskar"
+$2 "Lappi"
+
+inne i mitt_script
+
+O jag skriver 
+
+mitt_script
+
+Och inget annat, har mitt_script bara ett argument, $0 
+som har värdet "mitt_script"
+
 Kontrollstrukturer
 ------------------
 
@@ -123,6 +158,14 @@ then
 	<kommando>
 fi
 ```
+
+Exempel:
+
+if [ $1 ]
+then
+	echo "ett argument finns!"
+fi
+
 
 Villkoret innanför [] tolkas genom programmet test. test tar emot argument med
 en viss struktur:
@@ -146,6 +189,7 @@ HELTAL1 -lt HELTAL2 	HELTAL1 är numeriskt mindre än HELTAL2
 -w FIL 			FIL existerar och får skrivas till
 -x FIL 			FIL existerar och får köras som ett program
 ```
+
 Obs, det finns inga datatyper i shell-script, allting är text, men saker kan 
 tolkas som tal.
 
@@ -361,7 +405,6 @@ Tips till uppgifterna
 Argument kom du alltså åt genom att använda variablerna $1, $2 osv.
 
 Innehållet av variabler kan användas inne i kommandon  med $1 eller ${1}
-
 
 Minns att du kan använda alla tidigare tricks du har lärt dig, t.ex. >, <, |
 
