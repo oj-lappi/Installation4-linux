@@ -32,7 +32,9 @@ Hur fungerar det
 
 Starta ett projekt i en ny katalog genom att skriva:
 
- - git init
+```
+git init
+```
 
 Historik
 --------
@@ -41,7 +43,7 @@ Git sparar historiken av ditt projekt.
 
 Om ditt projekt har tre filer - A, B & C - kan historiken t.ex. se ut så här:
 
-[Källa:https://git-scm.com/book/en/v1/Getting-Started-Git-Basics](git-history.png)
+![Källa:https://git-scm.com/book/en/v1/Getting-Started-Git-Basics](git-history.png)
 
 Tre ställen filer bor i
 -----------------------
@@ -75,17 +77,17 @@ För att föra över filer genom Working directory -> Staging area -> Lokal repo
  - git commit 
  - git push
 
-git add <fil>
+git add [fil]
 -------------
 
-Lägger till <fil> till staging area. Fil kan också vara . eller * för att lägga till _alla_ filer som ändrats
+Lägger till [fil] från working directory till staging area. Fil kan också vara . eller * för att lägga till _alla_ filer som ändrats
 
 git commit
 ----------
 
 Kopierar filer från staging arean till lokala repon
 
-git push <remote>
+git push [remote]
 -----------------
 
 Flyttar filer till en annan dator en "remote"
