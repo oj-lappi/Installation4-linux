@@ -124,4 +124,4 @@ Uppgifter:
 
 Källor:
 
-Getting Started - Git Basics, https://git-scm.com/book/en/v1/Getting-Started-Git-Basics (Hämtad 12.2.2019)
+Getting Started - Git Basics, https://git-scm.com/book/en/v1/Getting-Started-Git-Basics (Hämtad 12.3.2019)
