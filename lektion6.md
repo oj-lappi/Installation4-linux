@@ -92,7 +92,7 @@ git push [remote]
 
 Flyttar filer till en annan dator en "remote"
 
-Vanligtvis pushar man till en "master" repository. Om en sådan finns i inställningarna för projektet behöver du bara skriva
+Vanligtvis pushar man till en "origin" repository som fungerar som orakel (gemensam sanning). Om en sådan finns i inställningarna för projektet behöver du bara skriva
 
 ```
 git push
@@ -116,7 +116,7 @@ git checkout <version>
 Uppgifter:
 
  1. Kolla med git log hur många versioner av den här repon det finns 
- 2. Skapa en egen repository för dina uppgifter som du gjort och ladda upp den på github eller bitbucker. Du måste skapa ett konto på någondera av dessa.
+ 2. Skapa en egen repository för dina uppgifter som du gjort och ladda upp den på github eller bitbucket. Du måste skapa ett konto på någondera av dessa.
  3. Gå tillbaka till första versionen av den här repositoryn med git checkout
 
 
