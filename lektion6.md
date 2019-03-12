@@ -115,7 +115,7 @@ git checkout <version>
 
 Uppgifter:
 
- 1. Kolla med git status hur många versioner av den här repon det finns 
+ 1. Kolla med git log hur många versioner av den här repon det finns 
  2. Skapa en egen repository för dina uppgifter som du gjort och ladda upp den på github eller bitbucker. Du måste skapa ett konto på någondera av dessa.
  3. Gå tillbaka till första versionen av den här repositoryn med git checkout
 
