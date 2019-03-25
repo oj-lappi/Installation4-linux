@@ -24,9 +24,9 @@ Det går dock att koppla till volymer, alltså kataloger utifrån containern.
 
 Docker images kan byggas med hjälp av en base image, en Dockerfile och ```docker build```-kommandot.
 
-En image är basen för en container. En container är det som kör, lite som ett program, men innehållandes ett fungerande oerativsystem.
+En image är basen för en container. En container är det som kör, lite som ett program, men innehållandes funktionerna av ett operativsystem.
 
-Dockerfiles börjar alltid med ett ```FROM```-direktiv, som bestämmer vilken tidigare image man använder som bas. OM man vill börja helt från början, heter det ```FROM scratch```.
+Dockerfiles börjar alltid med ett ```FROM```-direktiv, som bestämmer vilken tidigare image man använder som bas. Om man vill börja helt från början, heter det ```FROM scratch```(rekommenderas inte om du inte vet vad du gör).
 Därefter kan man använda t.ex. COPY, RUN,  ENV-direktiv för att skapa nya images. T.ex. med RUN kan man installera nya program med apt, med COPY kan man överföra filer från ditt OS till imagen.
 
 Andra direktiv, som LABEL, VOLUME, ENTRYPOINT, EXPOSE används för att bestämma hur containern beter sig.
@@ -39,10 +39,10 @@ Mer information [här](https://docs.docker.com/engine/reference/builder/)
 
 0. Ladda ner Docker med apt, aktivera docker-daemonen med hjälp av systemd. Dvs. kör ```sudo systemctl enable docker``` eller ```sudo systemctl start docker```
 	
-		daemon 	= ett bakgrundsprogram
+		daemon  = ett bakgrundsprogram
 		systemd = systemdaemon, bakgrundsprogrammet som styr alla andra bakgrundsprogram.
-		enable 	= daemonen startar när du startar datorn
-		start 	= starta daemonen just nu
+		enable  = daemonen startar när du startar datorn
+		start   = starta daemonen just nu
 
 1. Ladda ner t.ex. en Ubuntu-image. Kör den i interaktivt läge (med -i flaggan)
 2. Skriv ett eget hello-world script i valfritt språk. Använd en Dockerfile för att bygga en image som innehåller scriptet. Använd ett COPY direktiv.
