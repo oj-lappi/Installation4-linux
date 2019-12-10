@@ -2,34 +2,52 @@ shell
 
 Definitioner
 ============
+
 Terminal
 --------
 
-Gammal arbetsstation som kunde överföra text till en dator som fanns annanstans. Man brukade ringa (med kopparkabeltelefon) till en dator som många mänskor använde samtidigt.
+En terminal var en gammal arbetsstation som kunde överföra text till och från en dator som fanns annanstans.
+Man brukade ringa (med kopparkabeltelefon) till en stor dator som många mänskor använde samtidigt.
 
 Terminalemulator
 ----------------
-Eftersom datorer inte fungerar på samma sätt mera är det en emulator som nu kör på skärmen.
+
+Eftersom din moderna dator kör operativsystemet själv, behövs inte terminaler längre.
+Vi använder istället en **terminalemulator**, ett program som beter sig som en terminal.
 
 
-Shell
------
+Kernel (Kärnan)
+---------------
 
-Det yttersta "skalet" av operativsystems kernel ("kärnan"), ett program som tolkar texten du skriver i terminalen som kommandon till operativsystemet.
-Det finns många olika skal som kan användas för att komma åt kerneln, Ubuntu har som default bash (Bourne Again Shell)
-Vissa skal är grafiska, t.ex. Windows användargränssnittet, och det grafiska gränssnittet ni nu använder i Ubuntu. 
-Dessa brukar ofa kallas Desktop environment, medans man vanligtvis anser ett textbaserat gränssnitt med "shell".
+Kärnan av operativsystemet är ett program som bestämmer över alla andra program.
+Kärnan:
+ - startar processer som andra program behöver
+ - delar ut tillgång till minne och andra komponenter till processer
+ - bestämmer när en process får köra på processorn
+ - ställer upp en tidtabell för processerna, på mikrosekundsnivå, så att alla processer får köra några mikrosekunder åt gången
 
-Kernel
-------
+P.g.a. tidtabellen känns det som om många program kör samtidigt, fast man bara har en processor!
 
-Kärnan av operativsystemet, ett program som ger ut processortid och minne till andra program & bestämmer i vilken ordning andra program kör
+Shell (skalet)
+--------------
+
+Om operativsystemet är en nöt, så finns det ett skal runt kärnan som användaren kan tafsa på.
+Via skalet skickas kommandon till kärnan. Du kan köra ett skal i en terminalemulator för att skicka kommandon till operativsystemet.
+Det finns många olika skal, Ubuntu har som default bash (Bourne Again Shell)
+
+Vissa skal är grafiska, t.ex. Windows' explorer.exe, och det grafiska system ni ser när ni startar Ubuntu. 
+I detta fall är skalet en del av en desktopmiljö, och de delar av desktopen som låter dig styra kerneln är del av skalet.
+Vanligtvis brukar man ändå avse ett textbaserat system när man säger "shell".
+
 
 Användarprogram
 ---------------
 
-Program som går att kallas via en shell, dessa kan vara portabla, dvs. de kan fungera på många Unixlika plattformer. 
-Det finns många program och de körs genom att skriva programmets namn.
+Program som går att starta via en shell.
+Det finns många program och de körs genom att skriva programmets namn i shellen, eller genom att starta dem via en meny i ett grafiskt skal.
+
+Namnet på ett program är en filstig till programfilen. Men om ditt program finns på vissa speciella ställen i filsystemet behöver du inte skriva hela filstigen.
+(Om du är intresserad av hur detta fungerar, sök efter "PATH variable" på webben)
 
 Kort tutorial
 =============
